@@ -1,0 +1,153 @@
+
+
+SELECT * FROM Inventory WHERE name LIKE '%p%';
+
+
+SELECT * FROM Inventory WHERE quantity CONTAINS '8';
+
+SELECT * FROM Inventory WHERE CONTAINS(quantity,'9', 1) > 0;
+
+CHARINDEX(Inventory, '9 word2 word3', 1)<>0
+
+SELECT * FROM Inventory WHERE INSTR('9',quantity)<>0
+
+INSERT INTO Inventory VALUES (3, 'peratota', 3125); INSERT INTO Inventory VALUES (4, 'peraloca', 3673);
+
+-----
+
+SELECT * FROM Inventory 
+WHERE name <> '%sql%';
+
+select * from Inventory where quantity not in (999);
+
+SELECT * FROM Inventory WHERE quantity != 777;
+
+SELECT * FROM Inventory WHERE name != 'sql1';
+
+---------
+
+SELECT * from tabla1
+WHERE campo3  = (
+    SELECT MAX (campo3)
+    FROM tabla1
+)
+---
+$sql_semaforo = mysqli_query($conection, "SELECT * FROM `citas_pro`WHERE id_cliente= $data[0] AND fecha_proxima = (SELECT MAX(fecha_proxima) FROM `citas_pro` WHERE `id_cliente` = $data[0])");
+
+---
+
+declare @ultimovalor
+set @ultimovalor =(select max(valor) from tabla)
+
+select * from tabla where valor=@ultimovalor
+----
+select t.username, t.date, t.value
+from MyTable t
+inner join (
+    select username, max(date) as MaxDate
+    from MyTable
+    group by username
+) tm on t.username = tm.username and t.date = tm.MaxDate
+
+SELECT CURRENT_DATETIME() as now;
+
++----------------------------+
+| now                        |
++----------------------------+
+| 2016-05-19T10:38:47.046465 |
++----------------------------+
+
+CREATE TABLE datadoglog1 (id INT NOT NULL PRIMARY KEY, producto_id INT, execution_date DATETIME(10) NOT NULL, error VARCHAR(6000) NULL);
+
+INSERT INTO datalove
+VALUES 
+(1,'500','2014-09-05 00:00:00'),
+(2,NULL,'2015-09-18 21:00:00'),
+(3,NULL,'2016-09-22 21:00:00'),
+(4,NULL,'2017-09-02 21:00:00'),
+(5,'401','2011-09-11 21:00:00'),
+(6,NULL,'2012-09-26 21:00:00'),
+(7,'batch error','2010-09-12 21:00:00'),
+(8,NULL,'2011-09-02 21:00:00'),
+(9,'batch error','2012-09-20 21:00:00');
+
+product_id - id o error
+fecha - execution_date
+
+Select * from datalove
+SELECT error, MAX(execution_date) AS execution_date FROM datalove WHERE error = 'NULL';
+SELECT * FROM TUTABLA WHERE id_producto = 8 AND fecha_creacion = (SELECT MAX(fecha_creacion) from TUTABLA)
+
+    SELECT  
+        a.producto_id, a.fecha
+    FROM    
+        producto_20170927 a
+            INNER JOIN
+            (
+                SELECT  producto_id, MAX(fecha) fecha_max
+                FROM    producto_20170927
+                GROUP BY producto_id
+            ) b ON a.producto_id = b.producto_id AND
+                    a.fecha = b.fecha_max
+     WHERE 
+         a.producto_id=8
+     ;
+Select * from datalove
+SELECT * FROM datalove WHERE error = 500 AND execution_date = (SELECT MAX(execution_date) from datalove);
+
+select count(*) from datalove where datetime>= NOW()- INTERVAL 1 HOUR
+
+
+SELECT * 
+FROM datalove
+WHERE datalove.execution_date > DATE_SUB(CURDATE(), INTERVAL 1 DAY)
+
+Select * from datalove
+funciona (SELECT MAX(execution_date) from datalove WHERE error = 'batch error');
+
+(SELECT MAX(execution_date) from datalove WHERE id = 1);
+
+
+fucniona (SELECT MAX(execution_date) from datalove WHERE error LIKE '%5%');
+LIKE '%p%'
+
+SELECT * FROM datalove WHERE error != 'NULL';
+
+funciona lista mvp1
+(SELECT MAX(execution_date) from datalove WHERE error != 'NULL' AND execution_date > dateadd(mi,-290,getdate()));
+final final
+select error,execution_date from datalove WHERE execution_date > dateadd(mi,-280,getdate())
+select error,execution_date from datalove WHERE error != 'NULL' AND execution_date > dateadd(mi,-290,getdate())
+INSERT INTO datalove
+VALUES 
+(29,'500','2021-07-26 18:00:00'),
+(30,NULL,'2021-07-26 18:01:00'),
+(31,'401','2021-07-26 18:02:00');
+(26,NULL,'2021-06-26 17:12:00'),
+(27,NULL,'2021-07-26 17:14:00'),
+(28,'error batch','2021-07-26 17:16:00');
+(29,'401','2021-07-24 12:00:00');
+
+Select * from datalove order by execution_date desc
+
+16	401	    2021-07-24 12:00:00.0000000
+11	NULL	2021-07-24 03:00:00.0000000
+10	500	    2021-07-23 16:00:00.0000000
+14	401	    2021-07-20 23:00:00.0000000
+15	500	    2021-07-19 13:00:00.0000000
+13	NULL	2021-07-02 08:00:00.0000000
+12	NULL	2021-06-22 21:00:00.0000000
+
+SELECT SYSDATETIME()
+    ,SYSDATETIMEOFFSET()
+    ,SYSUTCDATETIME()
+    ,CURRENT_TIMESTAMP
+    ,GETDATE()
+    ,GETUTCDATE();
+
+    SELECT GETDATE();
+
+
+select error from datalove WHERE error != NULL AND execution_date > dateadd(hh,-5,getdate())
+
+select error,execution_date from datalove WHERE error !=NULL AND execution_date > dateadd(mi,-290,getdate())

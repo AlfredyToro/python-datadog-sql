@@ -1,0 +1,16 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: "#{imagen_app_name}#"
+  namespace: "#{namespace}#"
+spec:
+  schedule: "*/4 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: "#{imagen_app_name}#"
+            image: "#{acr}#/#{imagen}#:#{imagen_version}#"
+            imagePullPolicy: IfNotPresent
+          restartPolicy: OnFailure

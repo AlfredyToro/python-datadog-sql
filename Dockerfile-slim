@@ -1,0 +1,6 @@
+FROM abilaskubernetesdev.azurecr.io/portalobjetivos/objetivos-apisqldatadog:pysqlapi_baseline_latest
+
+WORKDIR /datadog-log
+COPY /datadog-log /datadog-log
+
+CMD ["python3", "/datadog-log/select.py"]
